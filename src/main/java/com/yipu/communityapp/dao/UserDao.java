@@ -44,4 +44,10 @@ public class UserDao {
         }
         return user;
     }
+
+    public String getRole(String email) {
+        User user = getUser(email);
+        return user.getRole();
+    }
+
 }

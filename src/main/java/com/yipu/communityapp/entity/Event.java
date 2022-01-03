@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
@@ -80,13 +81,23 @@ public class Event implements Serializable {
         this.info = info;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return eid == event.eid && user.equals(event.user) && Objects.equals(title, event.title) && Objects.equals(type, event.type) && Objects.equals(postTime, event.postTime) && Objects.equals(info, event.info);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(eid, user, title, type, postTime, info);
+    }
 
-
-
-
-
-
-
-
+    public void replace(Event newEvent) {
+        this.title = newEvent.title;
+        this.type = newEvent.type;
+        this.postTime = newEvent.postTime;
+        this.info = newEvent.info;
+    }
 }
